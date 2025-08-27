@@ -1,3 +1,7 @@
+/**
+ * Representa um terreno como tipo de imóvel.
+ */
+
 package model;
 
 public class Terreno extends Financiamento {

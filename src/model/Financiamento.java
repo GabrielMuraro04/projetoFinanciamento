@@ -1,3 +1,8 @@
+/**
+ * Representa um financiamento imobiliário com informações como valor, taxa e prazo.
+ * Fornece métodos para calcular o valor da parcela mensal.
+ * */
+
 package model;
 
 public abstract class Financiamento {
@@ -6,7 +11,15 @@ public abstract class Financiamento {
     private int prazoFinanciamento;
     private double taxaJurosAnual;
 
-    public Financiamento(double valorImovel, int prazoFinanciamento, double taxaJurosAnual) {
+    /**
+     * Construtor do financiamento.
+     *
+     * valorImovel Valor do imóvel
+     * prazoFinanciamento Prazo do financiamento em anos
+     * taxaJurosAnual Taxa de juros anual em porcentagem
+     */
+
+ public Financiamento(double valorImovel, int prazoFinanciamento, double taxaJurosAnual) {
         this.valorImovel = valorImovel;
         this.prazoFinanciamento = prazoFinanciamento;
         this.taxaJurosAnual = taxaJurosAnual;

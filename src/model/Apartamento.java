@@ -1,3 +1,7 @@
+/**
+ * Representa um apartamento como tipo de imóvel.
+ */
+
 package model;
 
 public class Apartamento extends Financiamento {

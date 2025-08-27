@@ -1,3 +1,8 @@
+/**
+ * Interface de usuário para executar o sistema de financiamento.
+ * Exibe menu e resultados no console.
+ */
+
 package view;
 
 import java.util.InputMismatchException;
