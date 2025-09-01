@@ -1,35 +1,74 @@
-/**
- * Representa uma casa como tipo de imóvel.
- * Herda características gerais de um imóvel (Financiamento, valor, etc.).
- */
-
 package model;
 
-public class Casa extends Financiamento {
-    private double areaConstruida;
-    private double tamanhoTerreno;
+/**
+ * Representa uma Casa para fins de financiamento.
+ */
+public class Casa {
 
-    public Casa(double valorImovel, int prazo, double taxaJurosAnual, double areaConstruida, double tamanhoTerreno) throws AumentoMaiorDoQueJurosException {
-        super(valorImovel, prazo, taxaJurosAnual);
-        this.areaConstruida = areaConstruida;
-        this.tamanhoTerreno = tamanhoTerreno;
+    private String endereco;
+    private double area; // em metros quadrados
+    private int numeroQuartos;
+    private int numeroBanheiros;
+    private double valor; // valor do imóvel
 
-        double parcelaBase = (valorImovel / (prazo * 12)) * (1 + (taxaJurosAnual / 12));
-        double juros = parcelaBase - (valorImovel / (prazo * 12));
-        if (80 > juros / 2) {
-            throw new AumentoMaiorDoQueJurosException("O valor do acréscimo (R$ 80,00) é maior que metade dos juros da parcela.");
-        }
+    // Construtor
+    public Casa(String endereco, double area, int numeroQuartos, int numeroBanheiros, double valor) {
+        this.endereco = endereco;
+        this.area = area;
+        this.numeroQuartos = numeroQuartos;
+        this.numeroBanheiros = numeroBanheiros;
+        this.valor = valor;
+    }
+
+    // ----------------- Getters e Setters -----------------
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public int getNumeroQuartos() {
+        return numeroQuartos;
+    }
+
+    public void setNumeroQuartos(int numeroQuartos) {
+        this.numeroQuartos = numeroQuartos;
+    }
+
+    public int getNumeroBanheiros() {
+        return numeroBanheiros;
+    }
+
+    public void setNumeroBanheiros(int numeroBanheiros) {
+        this.numeroBanheiros = numeroBanheiros;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     @Override
-    public double calcularPagamentoMensal() {
-        double base = (getValorImovel() / (getPrazoFinanciamento() * 12)) * (1 + (getTaxaJurosAnual() / 12));
-        return base + 80;
-    }
-
-    @Override
-    public void exibirResumo() {
-        System.out.printf("[Casa] Imóvel: R$ %.2f | Total: R$ %.2f\n", getValorImovel(), calcularTotalPagamento());
-
+    public String toString() {
+        return "Casa{" +
+                "endereco='" + endereco + '\'' +
+                ", area=" + area +
+                ", quartos=" + numeroQuartos +
+                ", banheiros=" + numeroBanheiros +
+                ", valor=" + valor +
+                '}';
     }
 }

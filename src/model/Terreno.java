@@ -1,25 +1,74 @@
-/**
- * Representa um terreno como tipo de imóvel.
- */
-
 package model;
 
-public class Terreno extends Financiamento {
-    private String tipoZona;
+/**
+ * Representa um Terreno para fins de financiamento.
+ */
+public class Terreno {
 
-    public Terreno(double valorImovel, int prazo, double taxaJurosAnual, String tipoZona) {
-        super(valorImovel, prazo, taxaJurosAnual);
-        this.tipoZona = tipoZona;
+    private String endereco;
+    private double area; // em metros quadrados
+    private boolean possuiMurado; // se o terreno é murado
+    private boolean possuiInfraestrutura; // água, energia, esgoto
+    private double valor; // valor do terreno
+
+    // Construtor
+    public Terreno(String endereco, double area, boolean possuiMurado, boolean possuiInfraestrutura, double valor) {
+        this.endereco = endereco;
+        this.area = area;
+        this.possuiMurado = possuiMurado;
+        this.possuiInfraestrutura = possuiInfraestrutura;
+        this.valor = valor;
+    }
+
+    // ----------------- Getters e Setters -----------------
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public boolean isPossuiMurado() {
+        return possuiMurado;
+    }
+
+    public void setPossuiMurado(boolean possuiMurado) {
+        this.possuiMurado = possuiMurado;
+    }
+
+    public boolean isPossuiInfraestrutura() {
+        return possuiInfraestrutura;
+    }
+
+    public void setPossuiInfraestrutura(boolean possuiInfraestrutura) {
+        this.possuiInfraestrutura = possuiInfraestrutura;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     @Override
-    public double calcularPagamentoMensal() {
-        double base = (getValorImovel() / (getPrazoFinanciamento() * 12)) * (1 + (getTaxaJurosAnual() / 12));
-        return base * 1.02;
-    }
-
-    @Override
-    public void exibirResumo() {
-        System.out.printf("[Terreno] Imóvel: R$ %.2f | Total: R$ %.2f\n", getValorImovel(), calcularTotalPagamento());
+    public String toString() {
+        return "Terreno{" +
+                "endereco='" + endereco + '\'' +
+                ", area=" + area +
+                ", murado=" + possuiMurado +
+                ", infraestrutura=" + possuiInfraestrutura +
+                ", valor=" + valor +
+                '}';
     }
 }

@@ -1,58 +1,100 @@
-/**
- * Interface de usuário para executar o sistema de financiamento.
- * Exibe menu e resultados no console.
- */
-
 package view;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
+import model.Financiamento.TipoAmortizacao;
 
 public class InterfaceUsuario {
-    private Scanner scanner = new Scanner(System.in);
 
-    public double lerValorImovel() {
+    private static final Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Solicita ao usuário o valor do imóvel.
+     */
+    public static double solicitarValorImovel() {
+        System.out.print("Informe o valor do imóvel: R$ ");
+        double valor = lerDoublePositivo();
+        return valor;
+    }
+
+    /**
+     * Solicita ao usuário o valor da entrada.
+     */
+    public static double solicitarValorEntrada(double valorImovel) {
+        System.out.print("Informe o valor da entrada: R$ ");
         double valor;
-        do {
-            try {
-                System.out.print("Digite o valor do imóvel: R$ ");
-                valor = scanner.nextDouble();
-                if (valor <= 0) throw new IllegalArgumentException("Valor deve ser positivo.");
-                return valor;
-            } catch (InputMismatchException | IllegalArgumentException e) {
-                System.out.println("Erro: Entrada inválida. Tente novamente.");
-                scanner.nextLine();
+        while (true) {
+            valor = lerDoublePositivo();
+            if (valor >= valorImovel) {
+                System.out.println("A entrada não pode ser maior ou igual ao valor do imóvel. Tente novamente.");
+            } else {
+                break;
             }
-        } while (true);
+        }
+        return valor;
     }
 
-    public int lerPrazoFinanciamento() {
+    /**
+     * Solicita o prazo em meses.
+     */
+    public static int solicitarPrazo() {
+        System.out.print("Informe o prazo do financiamento em meses: ");
         int prazo;
-        do {
-            try {
-                System.out.print("Digite o prazo em anos: ");
-                prazo = scanner.nextInt();
-                if (prazo <= 0) throw new IllegalArgumentException("Prazo deve ser positivo.");
-                return prazo;
-            } catch (InputMismatchException | IllegalArgumentException e) {
-                System.out.println("Erro: Entrada inválida. Tente novamente.");
-                scanner.nextLine();
+        while (true) {
+            prazo = lerIntPositivo();
+            if (prazo <= 0) {
+                System.out.println("O prazo deve ser maior que zero. Tente novamente.");
+            } else {
+                break;
             }
-        } while (true);
+        }
+        return prazo;
     }
 
-    public double lerTaxaJuros() {
-        double taxa;
-        do {
-            try {
-                System.out.print("Digite a taxa de juros anual (ex: 0.1 para 10%: ");
-                taxa = scanner.nextDouble();
-                if (taxa <= 0) throw new IllegalArgumentException("Taxa deve ser positiva.");
-                return taxa;
-            } catch (InputMismatchException | IllegalArgumentException e) {
-                System.out.println("Erro: Entrada inválida. Tente novamente.");
-                scanner.nextLine();
-            }
-        } while (true);
+    /**
+     * Solicita a taxa de juros anual.
+     */
+    public static double solicitarTaxaJuros() {
+        System.out.print("Informe a taxa de juros anual (%): ");
+        return lerDoublePositivo();
+    }
+
+    /**
+     * Solicita o tipo de amortização (PRICE ou SAC).
+     */
+    public static TipoAmortizacao solicitarTipoAmortizacao() {
+        System.out.print("Escolha o tipo de amortização (1-PRICE, 2-SAC): ");
+        while (true) {
+            int opcao = lerIntPositivo();
+            if (opcao == 1) return TipoAmortizacao.PRICE;
+            else if (opcao == 2) return TipoAmortizacao.SAC;
+            else System.out.print("Opção inválida. Escolha 1 para PRICE ou 2 para SAC: ");
+        }
+    }
+
+    // ----------------- Métodos auxiliares -----------------
+    private static double lerDoublePositivo() {
+        while (!scanner.hasNextDouble()) {
+            System.out.print("Valor inválido. Digite um número: ");
+            scanner.next();
+        }
+        double valor = scanner.nextDouble();
+        if (valor < 0) {
+            System.out.print("Valor deve ser positivo. Digite novamente: ");
+            return lerDoublePositivo();
+        }
+        return valor;
+    }
+
+    private static int lerIntPositivo() {
+        while (!scanner.hasNextInt()) {
+            System.out.print("Valor inválido. Digite um número inteiro: ");
+            scanner.next();
+        }
+        int valor = scanner.nextInt();
+        if (valor < 0) {
+            System.out.print("Valor deve ser positivo. Digite novamente: ");
+            return lerIntPositivo();
+        }
+        return valor;
     }
 }
