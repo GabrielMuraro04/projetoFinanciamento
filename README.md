@@ -40,28 +40,29 @@ src/
 
 ---
 
-## ⚙️ Como Executar
+## ⚙️ Como Executar<br>
 
-1. Clone o repositório:
+1. Clone o repositório:<br>
    
-   git clone https://github.com/GabrielMuraro04/projetoFinanciamento.git
-Entre na pasta do projeto:
+   git clone https://github.com/GabrielMuraro04/projetoFinanciamento.git<br>
+   
+Entre na pasta do projeto:<br>
 
-cd projetoFinanciamento
-Compile todas as classes:
+cd projetoFinanciamento<br>
+Compile todas as classes:<br>
 
-javac -d out src/model/*.java src/view/*.java src/main/Main.java
-Execute o programa:
+javac -d out src/model/*.java src/view/*.java src/main/Main.java<br>
+Execute o programa:<br>
 
-java -cp out main.Main
-🧮 Tecnologias e Conceitos
-Java (POO e polimorfismo)
+java -cp out main.Main<br>
+🧮 Tecnologias e Conceitos<br>
+Java (POO e polimorfismo)<br>
 
-Conceitos financeiros: sistemas de amortização PRICE e SAC
+Conceitos financeiros: sistemas de amortização PRICE e SAC<br>
 
-Interface em console para interação com o usuário
+Interface em console para interação com o usuário<br>
 
-🖥️ Exemplo de Saída
+🖥️ Exemplo de Saída<br>
 
 
 === Simulador de Financiamento ===<br>
@@ -88,15 +89,15 @@ Mês    Amortização  Juros        Saldo Devedor<br>
 2      2365.34      1655.00      396280.10<br>
 ...
 
-👤 Autor
-Gabriel Muraro
-Desenvolvedor Júnior | Projetos pessoais em Java e Web
-GitHub
+👤 Autor<br>
+Gabriel Muraro<br>
+Desenvolvedor Júnior | Projetos pessoais em Java e Web<br>
+GitHub<br>
 
-📌 Observações
-Projeto desenvolvido como simulador de financiamentos, ideal para prática de POO, polimorfismo e cálculos financeiros.
+📌 Observações<br>
+Projeto desenvolvido como simulador de financiamentos, ideal para prática de POO, polimorfismo e cálculos financeiros.<br>
 
-Pode ser expandido com:
+Pode ser expandido com:<br>
 
 Interface gráfica (GUI)
 
