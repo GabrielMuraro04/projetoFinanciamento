@@ -1,17 +1,13 @@
 package model;
 
-/**
- * Representa um Terreno para fins de financiamento.
- */
-public class Terreno {
+public class Terreno implements Imovel {
 
     private String endereco;
-    private double area; // em metros quadrados
-    private boolean possuiMurado; // se o terreno é murado
-    private boolean possuiInfraestrutura; // água, energia, esgoto
-    private double valor; // valor do terreno
+    private double area;
+    private boolean possuiMurado;
+    private boolean possuiInfraestrutura;
+    private double valor;
 
-    // Construtor
     public Terreno(String endereco, double area, boolean possuiMurado, boolean possuiInfraestrutura, double valor) {
         this.endereco = endereco;
         this.area = area;
@@ -20,45 +16,9 @@ public class Terreno {
         this.valor = valor;
     }
 
-    // ----------------- Getters e Setters -----------------
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public double getArea() {
-        return area;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
-    }
-
-    public boolean isPossuiMurado() {
-        return possuiMurado;
-    }
-
-    public void setPossuiMurado(boolean possuiMurado) {
-        this.possuiMurado = possuiMurado;
-    }
-
-    public boolean isPossuiInfraestrutura() {
-        return possuiInfraestrutura;
-    }
-
-    public void setPossuiInfraestrutura(boolean possuiInfraestrutura) {
-        this.possuiInfraestrutura = possuiInfraestrutura;
-    }
-
+    @Override
     public double getValor() {
         return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
     }
 
     @Override

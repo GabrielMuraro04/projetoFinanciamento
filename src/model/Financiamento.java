@@ -2,9 +2,8 @@ package model;
 
 /**
  * Classe que representa um financiamento imobiliário.
- * Agora suporta cálculo com entrada e dois tipos de amortização:
- * - PRICE (parcelas fixas)
- * - SAC (amortização constante)
+ * Agora recebe um objeto Imovel (Casa, Apartamento ou Terreno)
+ * e suporta dois tipos de amortização: PRICE e SAC.
  */
 public class Financiamento {
 
@@ -12,17 +11,18 @@ public class Financiamento {
         PRICE, SAC
     }
 
-    private double valorImovel;
+    private Imovel imovel;
     private double valorEntrada;
     private double taxaJurosAnual; // em %
     private int prazoMeses;
     private TipoAmortizacao tipo;
 
-    public Financiamento(double valorImovel, double valorEntrada, double taxaJurosAnual, int prazoMeses, TipoAmortizacao tipo) {
-        if (valorEntrada >= valorImovel) {
+    // Construtor
+    public Financiamento(Imovel imovel, double valorEntrada, double taxaJurosAnual, int prazoMeses, TipoAmortizacao tipo) {
+        if (valorEntrada >= imovel.getValor()) {
             throw new IllegalArgumentException("A entrada não pode ser maior ou igual ao valor do imóvel.");
         }
-        this.valorImovel = valorImovel;
+        this.imovel = imovel;
         this.valorEntrada = valorEntrada;
         this.taxaJurosAnual = taxaJurosAnual;
         this.prazoMeses = prazoMeses;
@@ -30,7 +30,7 @@ public class Financiamento {
     }
 
     public double getValorImovel() {
-        return valorImovel;
+        return imovel.getValor();
     }
 
     public double getValorEntrada() {
@@ -60,7 +60,7 @@ public class Financiamento {
      * Calcula o valor financiado (imóvel - entrada).
      */
     private double getValorFinanciado() {
-        return valorImovel - valorEntrada;
+        return imovel.getValor() - valorEntrada;
     }
 
     /**
