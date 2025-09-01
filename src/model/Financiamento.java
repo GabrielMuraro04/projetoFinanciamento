@@ -92,4 +92,34 @@ public class Financiamento {
             return calcularPrimeiraParcelaSac();
         }
     }
+
+    /**
+     * Imprime o relatório detalhado mês a mês
+     */
+    public void imprimirRelatorioMensal() {
+        double saldoDevedor = getValorFinanciado();
+        double taxaMensal = getTaxaJurosMensal();
+        System.out.println("\n=== Relatório Mensal ===");
+        System.out.printf("%-6s %-12s %-12s %-12s%n", "Mês", "Amortização", "Juros", "Saldo Devedor");
+
+        if (tipo == TipoAmortizacao.PRICE) {
+            double parcela = calcularParcelaPrice();
+            for (int mes = 1; mes <= prazoMeses; mes++) {
+                double juros = saldoDevedor * taxaMensal;
+                double amortizacao = parcela - juros;
+                saldoDevedor -= amortizacao;
+                if (saldoDevedor < 0) saldoDevedor = 0;
+                System.out.printf("%-6d %-12.2f %-12.2f %-12.2f%n", mes, amortizacao, juros, saldoDevedor);
+            }
+        } else { // SAC
+            double amortizacao = getValorFinanciado() / prazoMeses;
+            for (int mes = 1; mes <= prazoMeses; mes++) {
+                double juros = saldoDevedor * taxaMensal;
+                double parcelaMes = amortizacao + juros;
+                saldoDevedor -= amortizacao;
+                if (saldoDevedor < 0) saldoDevedor = 0;
+                System.out.printf("%-6d %-12.2f %-12.2f %-12.2f%n", mes, amortizacao, juros, saldoDevedor);
+            }
+        }
+    }
 }

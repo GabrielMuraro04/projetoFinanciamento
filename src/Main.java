@@ -18,7 +18,7 @@ public class Main {
         System.out.println("3 - Terreno");
         int opcao = InterfaceUsuario.lerIntPositivo();
 
-        // Declarar a variável apenas uma vez
+        // Declarar a variável Imovel apenas uma vez
         Imovel imovelEscolhido;
 
         switch (opcao) {
@@ -36,7 +36,7 @@ public class Main {
                 break;
             default:
                 System.out.println("Opção inválida. Encerrando.");
-                return; // encerra o programa
+                return;
         }
 
         // Solicitar valores do financiamento
@@ -56,5 +56,8 @@ public class Main {
         System.out.println("Tipo de imóvel escolhido: " + (opcao == 1 ? "Casa" : opcao == 2 ? "Apartamento" : "Terreno"));
         System.out.println("Tipo de amortização: " + tipo);
         System.out.printf("Parcela mensal: R$ %.2f%n", parcela);
+
+        // Exibir relatório detalhado mês a mês
+        financiamento.imprimirRelatorioMensal();
     }
 }
