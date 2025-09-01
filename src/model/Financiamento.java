@@ -1,47 +1,95 @@
-/**
- * Representa um financiamento imobiliário com informações como valor, taxa e prazo.
- * Fornece métodos para calcular o valor da parcela mensal.
- * */
-
 package model;
 
-public abstract class Financiamento {
+/**
+ * Classe que representa um financiamento imobiliário.
+ * Agora suporta cálculo com entrada e dois tipos de amortização:
+ * - PRICE (parcelas fixas)
+ * - SAC (amortização constante)
+ */
+public class Financiamento {
+
+    public enum TipoAmortizacao {
+        PRICE, SAC
+    }
 
     private double valorImovel;
-    private int prazoFinanciamento;
-    private double taxaJurosAnual;
+    private double valorEntrada;
+    private double taxaJurosAnual; // em %
+    private int prazoMeses;
+    private TipoAmortizacao tipo;
 
-    /**
-     * Construtor do financiamento.
-     *
-     * valorImovel Valor do imóvel
-     * prazoFinanciamento Prazo do financiamento em anos
-     * taxaJurosAnual Taxa de juros anual em porcentagem
-     */
-
- public Financiamento(double valorImovel, int prazoFinanciamento, double taxaJurosAnual) {
+    public Financiamento(double valorImovel, double valorEntrada, double taxaJurosAnual, int prazoMeses, TipoAmortizacao tipo) {
+        if (valorEntrada >= valorImovel) {
+            throw new IllegalArgumentException("A entrada não pode ser maior ou igual ao valor do imóvel.");
+        }
         this.valorImovel = valorImovel;
-        this.prazoFinanciamento = prazoFinanciamento;
+        this.valorEntrada = valorEntrada;
         this.taxaJurosAnual = taxaJurosAnual;
+        this.prazoMeses = prazoMeses;
+        this.tipo = tipo;
     }
 
     public double getValorImovel() {
         return valorImovel;
     }
 
-    public int getPrazoFinanciamento () {
-        return prazoFinanciamento;
+    public double getValorEntrada() {
+        return valorEntrada;
     }
 
     public double getTaxaJurosAnual() {
         return taxaJurosAnual;
     }
 
-    public abstract double calcularPagamentoMensal();
-
-    public double calcularTotalPagamento() {
-        return calcularPagamentoMensal() * prazoFinanciamento * 12;
+    public int getPrazoMeses() {
+        return prazoMeses;
     }
 
-    public abstract void exibirResumo();
+    public TipoAmortizacao getTipo() {
+        return tipo;
+    }
+
+    /**
+     * Calcula a taxa de juros mensal (conversão da taxa anual).
+     */
+    private double getTaxaJurosMensal() {
+        return (taxaJurosAnual / 100) / 12;
+    }
+
+    /**
+     * Calcula o valor financiado (imóvel - entrada).
+     */
+    private double getValorFinanciado() {
+        return valorImovel - valorEntrada;
+    }
+
+    /**
+     * Calcula a parcela mensal pelo sistema PRICE.
+     */
+    public double calcularParcelaPrice() {
+        double i = getTaxaJurosMensal();
+        double pv = getValorFinanciado();
+        return pv * (i * Math.pow(1 + i, prazoMeses)) / (Math.pow(1 + i, prazoMeses) - 1);
+    }
+
+    /**
+     * Calcula a primeira parcela pelo sistema SAC.
+     * (OBS: as parcelas decrescem ao longo do tempo)
+     */
+    public double calcularPrimeiraParcelaSac() {
+        double amortizacao = getValorFinanciado() / prazoMeses;
+        double juros = getValorFinanciado() * getTaxaJurosMensal();
+        return amortizacao + juros;
+    }
+
+    /**
+     * Retorna a parcela de acordo com o tipo de amortização.
+     */
+    public double calcularParcela() {
+        if (tipo == TipoAmortizacao.PRICE) {
+            return calcularParcelaPrice();
+        } else {
+            return calcularPrimeiraParcelaSac();
+        }
+    }
 }
